@@ -1,0 +1,74 @@
+/* ExpenseList.css */
+.expense-list {
+    margin-top: 20px;
+}
+
+.expense-list h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.expense-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.expense-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.expense-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.expense-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.expense-item p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .expense-item {
+    background-color: #1e1e1e;
+    border-color: #444;
+    color: white;
+}
+
+body.dark-mode .expense-item p {
+    color: #bbb;
+}
+
+body.dark-mode .delete-btn {
+    background-color: #ff4444;
+}
+
+body.dark-mode .delete-btn:hover {
+    background-color: #cc0000;
+}

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from './Login';
 import Register from './Register';
 import ExpenseManagement from './components/ExpenseManagement';
+import Profile from './Profile';
 import './App.css';
 
 const App = () => {
@@ -13,12 +16,10 @@ const App = () => {
     localStorage.getItem('darkMode') === 'true'
   );
 
-  // Effect to persist login state
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
   }, [isAuthenticated]);
 
-  // Effect to apply dark mode to the entire screen
   useEffect(() => {
     localStorage.setItem('darkMode', darkMode);
     if (darkMode) {
@@ -28,32 +29,30 @@ const App = () => {
     }
   }, [darkMode]);
 
-  // Handle login
   const handleLogin = () => {
     setIsAuthenticated(true);
+    toast.success('Logged in successfully!');
   };
 
-  // Handle logout
   const handleLogout = () => {
     setIsAuthenticated(false);
+    toast.success('Logged out successfully!');
   };
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+    toast.info(`Switched to ${darkMode ? 'Light Mode' : 'Dark Mode'}`);
   };
 
   return (
     <div className="App">
-      {/* Dark Mode Toggle Button */}
+      <ToastContainer />
       <button onClick={toggleDarkMode} className="dark-mode-toggle">
         {darkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
 
-      {/* Router for Navigation */}
       <Router>
         <Routes>
-          {/* Login Page */}
           <Route
             path="/login"
             element={
@@ -64,8 +63,6 @@ const App = () => {
               )
             }
           />
-
-          {/* Register Page */}
           <Route
             path="/register"
             element={
@@ -76,8 +73,6 @@ const App = () => {
               )
             }
           />
-
-          {/* Expense Management Page */}
           <Route
             path="/expenses"
             element={
@@ -88,8 +83,16 @@ const App = () => {
               )
             }
           />
-
-          {/* Default Route (Redirect to Login) */}
+          <Route
+            path="/profile"
+            element={
+              isAuthenticated ? (
+                <Profile onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
       </Router>

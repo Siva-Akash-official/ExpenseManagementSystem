@@ -1,9 +1,9 @@
 import React from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Bar, Line, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import './Dashboard.css';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, ArcElement);
 
 const Dashboard = ({ expenses }) => {
   const categories = ['Food', 'Transport', 'Entertainment', 'Utilities', 'Other'];
@@ -22,6 +22,19 @@ const Dashboard = ({ expenses }) => {
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
+      },
+    ],
+  };
+
+  const lineData = {
+    labels: expenses.map((expense) => expense.date.toLocaleDateString()),
+    datasets: [
+      {
+        label: 'Expense Trends',
+        data: expenses.map((expense) => expense.amount),
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        fill: true,
       },
     ],
   };
@@ -57,6 +70,9 @@ const Dashboard = ({ expenses }) => {
       <div className="chart-container">
         <div className="chart">
           <Bar data={barData} />
+        </div>
+        <div className="chart">
+          <Line data={lineData} />
         </div>
         <div className="chart">
           <Pie data={pieData} />
